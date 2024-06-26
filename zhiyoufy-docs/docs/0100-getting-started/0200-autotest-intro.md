@@ -58,7 +58,7 @@ zhiyoufy是一套基于**[RobotFramework][], [pyhocon][], [jinja][]**等开发�
 
 如果只是执行测试可以通过[用户指南](../0200-user-guide/0100-intro.md)进一步了解
 
-如果会开发测试则还需要了解[开发指南](../0300-developer-guide/framework_intro/00100-intro.md)
+如果会开发测试则还需要了解[开发指南](../0300-developer-guide/0100-framework_intro/00100-intro.md)
 
 [RobotFramework]: https://robotframework.org
 [k8s]: https://kubernetes.io/

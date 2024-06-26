@@ -6,7 +6,7 @@ var baseUrl = '/'
 const isProd = process.env.NODE_ENV === 'production';
 
 if (isProd) {
-  baseUrl = '/zhiyoufy-docs/'
+  baseUrl = '/Zhiyoufy/'
 }
 
 const config: Config = {
@@ -14,7 +14,7 @@ const config: Config = {
   tagline: '自动化 功能测试 性能测试',
   favicon: 'img/favicon.ico',
 
-  url: 'https://zhiyoufy.github.io',
+  url: 'https://harix-rdk.github.io/',
   baseUrl: baseUrl,
 
   organizationName: 'zhiyoufy',
