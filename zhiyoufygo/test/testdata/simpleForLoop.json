@@ -1,0 +1,23 @@
+{
+    "name": "simpleForLoop",
+    "commands": [
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "sampleVarName",
+        "varValue": "sampleVarValue"
+      },
+      {
+        "commandId": "base/BlockForLoopCommand",
+        "blockName": "loopLevel1",
+        "rangeEnd": 3
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "sampleVarName"
+      },
+      {
+        "commandId": "base/BlockEndCommand",
+        "blockName": "loopLevel1"
+      }
+    ]
+  }

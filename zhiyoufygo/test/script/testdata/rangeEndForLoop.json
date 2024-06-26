@@ -1,0 +1,28 @@
+{
+    "name": "rangeEndForLoop",
+    "commands": [
+      {
+         "commandId": "base/SetVarCommand",
+         "varPath": "doneStr",
+         "varValue": "rangeEndForLoop exits"
+      },
+      {
+        "commandId": "base/BlockForLoopCommand",
+        "blockName": "ForLoop_rangeEnd",
+        "rangeEnd": 3,
+        "IterNextValueVarPath": "indexValue"
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "indexValue"
+      },
+      {
+        "commandId": "base/BlockEndCommand",
+        "blockName": "ForLoop_rangeEnd"
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "doneStr"
+      }
+    ]
+  }

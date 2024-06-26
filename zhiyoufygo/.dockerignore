@@ -1,0 +1,8 @@
+.vscode
+/build_docker
+/docker-composes
+/docs
+/helm
+/logs
+/out
+*.exe

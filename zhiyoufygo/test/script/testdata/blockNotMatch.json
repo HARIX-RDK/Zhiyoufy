@@ -1,0 +1,14 @@
+{
+  "name": "blockNotMatch",
+  "commands": [
+    {
+      "commandId": "base/BlockForLoopCommand",
+      "blockName": "processNewArticles",
+      "rangeEnd": 100
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "processOldArticles"
+    }
+  ]
+}

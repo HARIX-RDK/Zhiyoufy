@@ -1,0 +1,41 @@
+{
+  "name": "nestedForLoop",
+  "commands": [
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "loopLevel1 Print",
+      "varValue": "loopLevel1 Print"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "loopLevel2 Print",
+      "varValue": "loopLevel2 Print"
+    },
+    {
+      "commandId": "base/BlockForLoopCommand",
+      "blockName": "loopLevel1",
+      "rangeEnd": 3
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "loopLevel1 Print"
+    },
+    {
+      "commandId": "base/BlockForLoopCommand",
+      "blockName": "loopLevel2",
+      "rangeEnd": 2
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "loopLevel2 Print"
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "loopLevel2"
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "loopLevel1"
+    }
+  ]
+}

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.mbg.mapper.JmsJobScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.example.zhiyoufy.mbg.model.JmsJobSchedule">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="worker_app_id" jdbcType="BIGINT" property="workerAppId" />
+    <result column="worker_app_name" jdbcType="VARCHAR" property="workerAppName" />
+    <result column="worker_group_id" jdbcType="BIGINT" property="workerGroupId" />
+    <result column="worker_group_name" jdbcType="VARCHAR" property="workerGroupName" />
+    <result column="environment_id" jdbcType="BIGINT" property="environmentId" />
+    <result column="environment_name" jdbcType="VARCHAR" property="environmentName" />
+    <result column="template_id" jdbcType="BIGINT" property="templateId" />
+    <result column="template_name" jdbcType="VARCHAR" property="templateName" />
+    <result column="run_tag" jdbcType="VARCHAR" property="runTag" />
+    <result column="run_num" jdbcType="INTEGER" property="runNum" />
+    <result column="parallel_num" jdbcType="INTEGER" property="parallelNum" />
+    <result column="include_tags" jdbcType="VARCHAR" property="includeTags" />
+    <result column="exclude_tags" jdbcType="VARCHAR" property="excludeTags" />
+    <result column="add_tags" jdbcType="VARCHAR" property="addTags" />
+    <result column="remove_tags" jdbcType="VARCHAR" property="removeTags" />
+    <result column="crontab_config" jdbcType="VARCHAR" property="crontabConfig" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="modified_by" jdbcType="VARCHAR" property="modifiedBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, project_id, project_name, worker_app_id, worker_app_name, worker_group_id, 
+    worker_group_name, environment_id, environment_name, template_id, template_name, 
+    run_tag, run_num, parallel_num, include_tags, exclude_tags, add_tags, remove_tags, 
+    crontab_config, created_time, created_by, modified_time, modified_by
+  </sql>
+  <select id="selectByExample" parameterType="com.example.zhiyoufy.mbg.model.JmsJobScheduleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jms_job_schedule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jms_job_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from jms_job_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.zhiyoufy.mbg.model.JmsJobScheduleExample">
+    delete from jms_job_schedule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.zhiyoufy.mbg.model.JmsJobSchedule" useGeneratedKeys="true">
+    insert into jms_job_schedule (name, project_id, project_name, 
+      worker_app_id, worker_app_name, worker_group_id, 
+      worker_group_name, environment_id, environment_name, 
+      template_id, template_name, run_tag, 
+      run_num, parallel_num, include_tags, 
+      exclude_tags, add_tags, remove_tags, 
+      crontab_config, created_time, created_by, 
+      modified_time, modified_by)
+    values (#{name,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, 
+      #{workerAppId,jdbcType=BIGINT}, #{workerAppName,jdbcType=VARCHAR}, #{workerGroupId,jdbcType=BIGINT}, 
+      #{workerGroupName,jdbcType=VARCHAR}, #{environmentId,jdbcType=BIGINT}, #{environmentName,jdbcType=VARCHAR}, 
+      #{templateId,jdbcType=BIGINT}, #{templateName,jdbcType=VARCHAR}, #{runTag,jdbcType=VARCHAR}, 
+      #{runNum,jdbcType=INTEGER}, #{parallelNum,jdbcType=INTEGER}, #{includeTags,jdbcType=VARCHAR}, 
+      #{excludeTags,jdbcType=VARCHAR}, #{addTags,jdbcType=VARCHAR}, #{removeTags,jdbcType=VARCHAR}, 
+      #{crontabConfig,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{modifiedTime,jdbcType=TIMESTAMP}, #{modifiedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.zhiyoufy.mbg.model.JmsJobSchedule" useGeneratedKeys="true">
+    insert into jms_job_schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="workerAppId != null">
+        worker_app_id,
+      </if>
+      <if test="workerAppName != null">
+        worker_app_name,
+      </if>
+      <if test="workerGroupId != null">
+        worker_group_id,
+      </if>
+      <if test="workerGroupName != null">
+        worker_group_name,
+      </if>
+      <if test="environmentId != null">
+        environment_id,
+      </if>
+      <if test="environmentName != null">
+        environment_name,
+      </if>
+      <if test="templateId != null">
+        template_id,
+      </if>
+      <if test="templateName != null">
+        template_name,
+      </if>
+      <if test="runTag != null">
+        run_tag,
+      </if>
+      <if test="runNum != null">
+        run_num,
+      </if>
+      <if test="parallelNum != null">
+        parallel_num,
+      </if>
+      <if test="includeTags != null">
+        include_tags,
+      </if>
+      <if test="excludeTags != null">
+        exclude_tags,
+      </if>
+      <if test="addTags != null">
+        add_tags,
+      </if>
+      <if test="removeTags != null">
+        remove_tags,
+      </if>
+      <if test="crontabConfig != null">
+        crontab_config,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerAppId != null">
+        #{workerAppId,jdbcType=BIGINT},
+      </if>
+      <if test="workerAppName != null">
+        #{workerAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerGroupId != null">
+        #{workerGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="workerGroupName != null">
+        #{workerGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="environmentId != null">
+        #{environmentId,jdbcType=BIGINT},
+      </if>
+      <if test="environmentName != null">
+        #{environmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null">
+        #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="templateName != null">
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="runTag != null">
+        #{runTag,jdbcType=VARCHAR},
+      </if>
+      <if test="runNum != null">
+        #{runNum,jdbcType=INTEGER},
+      </if>
+      <if test="parallelNum != null">
+        #{parallelNum,jdbcType=INTEGER},
+      </if>
+      <if test="includeTags != null">
+        #{includeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="excludeTags != null">
+        #{excludeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="addTags != null">
+        #{addTags,jdbcType=VARCHAR},
+      </if>
+      <if test="removeTags != null">
+        #{removeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="crontabConfig != null">
+        #{crontabConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.zhiyoufy.mbg.model.JmsJobScheduleExample" resultType="java.lang.Long">
+    select count(*) from jms_job_schedule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update jms_job_schedule
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectName != null">
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerAppId != null">
+        worker_app_id = #{record.workerAppId,jdbcType=BIGINT},
+      </if>
+      <if test="record.workerAppName != null">
+        worker_app_name = #{record.workerAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerGroupId != null">
+        worker_group_id = #{record.workerGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="record.workerGroupName != null">
+        worker_group_name = #{record.workerGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.environmentId != null">
+        environment_id = #{record.environmentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.environmentName != null">
+        environment_name = #{record.environmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templateId != null">
+        template_id = #{record.templateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.templateName != null">
+        template_name = #{record.templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.runTag != null">
+        run_tag = #{record.runTag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.runNum != null">
+        run_num = #{record.runNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.parallelNum != null">
+        parallel_num = #{record.parallelNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.includeTags != null">
+        include_tags = #{record.includeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.excludeTags != null">
+        exclude_tags = #{record.excludeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTags != null">
+        add_tags = #{record.addTags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.removeTags != null">
+        remove_tags = #{record.removeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crontabConfig != null">
+        crontab_config = #{record.crontabConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifiedTime != null">
+        modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifiedBy != null">
+        modified_by = #{record.modifiedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update jms_job_schedule
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      worker_app_id = #{record.workerAppId,jdbcType=BIGINT},
+      worker_app_name = #{record.workerAppName,jdbcType=VARCHAR},
+      worker_group_id = #{record.workerGroupId,jdbcType=BIGINT},
+      worker_group_name = #{record.workerGroupName,jdbcType=VARCHAR},
+      environment_id = #{record.environmentId,jdbcType=BIGINT},
+      environment_name = #{record.environmentName,jdbcType=VARCHAR},
+      template_id = #{record.templateId,jdbcType=BIGINT},
+      template_name = #{record.templateName,jdbcType=VARCHAR},
+      run_tag = #{record.runTag,jdbcType=VARCHAR},
+      run_num = #{record.runNum,jdbcType=INTEGER},
+      parallel_num = #{record.parallelNum,jdbcType=INTEGER},
+      include_tags = #{record.includeTags,jdbcType=VARCHAR},
+      exclude_tags = #{record.excludeTags,jdbcType=VARCHAR},
+      add_tags = #{record.addTags,jdbcType=VARCHAR},
+      remove_tags = #{record.removeTags,jdbcType=VARCHAR},
+      crontab_config = #{record.crontabConfig,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      modified_by = #{record.modifiedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.zhiyoufy.mbg.model.JmsJobSchedule">
+    update jms_job_schedule
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerAppId != null">
+        worker_app_id = #{workerAppId,jdbcType=BIGINT},
+      </if>
+      <if test="workerAppName != null">
+        worker_app_name = #{workerAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerGroupId != null">
+        worker_group_id = #{workerGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="workerGroupName != null">
+        worker_group_name = #{workerGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="environmentId != null">
+        environment_id = #{environmentId,jdbcType=BIGINT},
+      </if>
+      <if test="environmentName != null">
+        environment_name = #{environmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null">
+        template_id = #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="templateName != null">
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="runTag != null">
+        run_tag = #{runTag,jdbcType=VARCHAR},
+      </if>
+      <if test="runNum != null">
+        run_num = #{runNum,jdbcType=INTEGER},
+      </if>
+      <if test="parallelNum != null">
+        parallel_num = #{parallelNum,jdbcType=INTEGER},
+      </if>
+      <if test="includeTags != null">
+        include_tags = #{includeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="excludeTags != null">
+        exclude_tags = #{excludeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="addTags != null">
+        add_tags = #{addTags,jdbcType=VARCHAR},
+      </if>
+      <if test="removeTags != null">
+        remove_tags = #{removeTags,jdbcType=VARCHAR},
+      </if>
+      <if test="crontabConfig != null">
+        crontab_config = #{crontabConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.zhiyoufy.mbg.model.JmsJobSchedule">
+    update jms_job_schedule
+    set name = #{name,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=BIGINT},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      worker_app_id = #{workerAppId,jdbcType=BIGINT},
+      worker_app_name = #{workerAppName,jdbcType=VARCHAR},
+      worker_group_id = #{workerGroupId,jdbcType=BIGINT},
+      worker_group_name = #{workerGroupName,jdbcType=VARCHAR},
+      environment_id = #{environmentId,jdbcType=BIGINT},
+      environment_name = #{environmentName,jdbcType=VARCHAR},
+      template_id = #{templateId,jdbcType=BIGINT},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      run_tag = #{runTag,jdbcType=VARCHAR},
+      run_num = #{runNum,jdbcType=INTEGER},
+      parallel_num = #{parallelNum,jdbcType=INTEGER},
+      include_tags = #{includeTags,jdbcType=VARCHAR},
+      exclude_tags = #{excludeTags,jdbcType=VARCHAR},
+      add_tags = #{addTags,jdbcType=VARCHAR},
+      remove_tags = #{removeTags,jdbcType=VARCHAR},
+      crontab_config = #{crontabConfig,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      modified_by = #{modifiedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

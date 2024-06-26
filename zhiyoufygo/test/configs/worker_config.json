@@ -1,0 +1,7 @@
+{
+    "workerApp": "zhiyoufygo",
+    "workerGroup": "dev_desktop_env",
+    "groupTokenName": "dev_desktop_env_token_1",
+    "groupTokenSecret": "qinshimingyuegxfc",
+    "workerName": "zhiyoufy-desktop"
+}

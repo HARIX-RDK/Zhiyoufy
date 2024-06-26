@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.EmsConfigItemDao">
+	<select id="getRunIdListByInUse" resultType="String">
+		select DISTINCT
+			usage_id
+		from
+			ems_config_item
+		where
+			ems_config_item.in_use = true
+	</select>
+</mapper>

@@ -1,0 +1,9 @@
+{
+  "name": "sleep",
+  "commands": [
+    {
+      "commandId": "base/SleepCommand",
+      "timeSeconds": 2
+    }
+  ]
+}

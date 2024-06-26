@@ -1,0 +1,27 @@
+{
+    "logConfig": "log.json",
+    "runCmdCfg": {
+        "httpPort": 9090,
+        "jobRunnerConfig": {
+            "parallelNum": 1000,
+            "spawnIntervalMs": 200,
+            "spawnNum": 4,
+            "scriptFile": "data/loopAllApis.json",
+            "cfgMap": {
+            },
+            "logGroupSize": 100
+        }
+    },
+    "workerCmdCfg": {
+        "workerCfg": {
+            "httpPort": 9090,
+            "serverAddr": "ws://localhost:8088/zhiyoufy-api/v1/websocket-stomp",
+            "workerApp": "zhiyoufygo",
+            "workerGroup": "dev_desktop_env",
+            "groupTokenName": "dev_desktop_env_token_1",
+            "groupTokenSecret": "qinshimingyuegxfc",
+            "workerName": "zhiyoufy-desktop",
+            "jobOutputUrl": "http://localhost:9090/zhiyoufy-worker/"
+        }
+    }
+}

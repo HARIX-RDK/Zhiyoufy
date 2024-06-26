@@ -1,0 +1,23 @@
+FROM maven:3.9-eclipse-temurin-11
+
+# Add Tini
+ENV TINI_VERSION v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		iputils-ping \
+		dnsutils \
+        vim \
+        procps \
+        fontconfig \
+        tcpdump \
+        net-tools
+
+WORKDIR /build-base
+
+COPY . /build-base
+
+RUN mvn clean package -DskipTests
+
+CMD ["sleep 10000"]

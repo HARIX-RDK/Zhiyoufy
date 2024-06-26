@@ -1,0 +1,49 @@
+{
+    "name": "simpleForLoop",
+    "commands": [
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "sampleVarName",
+        "varValue": "sampleVarValue"
+      },
+      {
+        "commandId": "base/BlockForLoopCommand",
+        "blockName": "loopLevel1",
+        "rangeEnd": 3
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "sampleVarName"
+      },
+      {
+        "commandId": "base/SleepCommand",
+        "timeSeconds": 10
+      },      
+      {
+        "commandId": "base/BlockEndCommand",
+        "blockName": "loopLevel1"
+      }
+    ],
+    "finallyNode": {
+      "nodes": [
+        {
+          "name": "setAndPrintGlobalVarFinally",
+          "commands": [
+            {
+              "commandId": "base/SleepCommand",
+              "timeSeconds": 2
+            },            
+            {
+              "commandId": "base/SetVarCommand",
+              "varPath": "sampleVarFinally",
+              "varValue": 40
+            },
+            {
+              "commandId": "base/PrintVarCommand",
+              "varPath": "sampleVarFinally"
+            }
+          ]
+        }
+      ]
+    }
+  }

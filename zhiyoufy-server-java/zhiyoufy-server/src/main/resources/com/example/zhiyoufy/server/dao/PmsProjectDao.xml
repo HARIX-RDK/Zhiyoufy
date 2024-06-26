@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.PmsProjectDao">
+	<resultMap extends="com.example.zhiyoufy.mbg.mapper.PmsProjectMapper.BaseResultMap"
+			   id="ResultMapFull" type="com.example.zhiyoufy.server.domain.dto.pms.PmsProjectFull">
+		<result column="is_owner" jdbcType="BIT" property="isOwner" />
+		<result column="is_editor" jdbcType="BIT" property="isEditor" />
+	</resultMap>
+
+	<resultMap id="ResultMapBase" type="com.example.zhiyoufy.server.domain.dto.pms.PmsProjectBase">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+
+	<select id="getProjectListByUserId" resultMap="ResultMapFull">
+		select
+			project.* ,
+			pur.is_owner,
+			pur.is_editor
+		from
+			pms_project_user_relation pur
+			left join pms_project project on project.id = pur.project_id
+		where
+			pur.user_id = #{userId}
+		<if test="queryParam != null">
+			<if test="queryParam.keyword != null">
+				and project.name like #{queryParam.keyword}
+			</if>
+			<if test="queryParam.orderByClause != null">
+				order by ${queryParam.orderByClause}
+			</if>
+		</if>
+	</select>
+
+	<select id="getProjectBaseListByUserId" resultMap="ResultMapBase">
+		select
+			project.id,	project.name
+		from
+			pms_project_user_relation pur
+			left join pms_project project on project.id = pur.project_id
+		where
+			pur.user_id = #{userId}
+	</select>
+
+</mapper>

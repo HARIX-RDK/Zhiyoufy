@@ -1,0 +1,57 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_2用户准备zhiyoufy-auto-test这个project",
+        "设置user_params_group_3用户为editor"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_2.username }}",
+      "password": "{{ zhiyoufy.user_params_group_2.password }}"
+    },
+
+    {
+        "type": "zhiyoufy_project_get_single_by_name",
+        "project_var_path": "project_var",
+        "name": "zhiyoufy-auto-test",
+        "step_description": "查找名字为name的project"
+    },
+    {
+        "type": "zhiyoufy_project_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "name": "zhiyoufy-auto-test",
+        "description": "对应zhiyoufy这个git repo",
+        "step_description": "查找指定name的project, 如果不存在就创建，存在则更新"
+    },
+    {
+        "type": "zhiyoufy_project_get_single_by_name",
+        "project_var_path": "project_var",
+        "name": "zhiyoufy-auto-test",
+        "must_exist": true,
+        "step_description": "查找名字为name的project"
+    },
+    {
+        "type": "zhiyoufy_user_get_single_by_name",
+        "user_var_path": "target_user",
+        "username": "{{ zhiyoufy.user_params_group_3.username }}",
+        "must_exist": true,
+        "step_description": "查询指定名字的user"
+    },
+    {
+        "type": "zhiyoufy_project_user_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "user_var_path": "target_user",
+        "username": "{{ zhiyoufy.user_params_group_3.username }}",
+        "isOwner": false,
+        "isEditor": true,
+        "step_description": "给指定用户配置权限"
+    },
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

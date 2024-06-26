@@ -1,0 +1,117 @@
+# Default values for zhiyoufygo-worker.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+persistence:
+  mode: pvc # one of pvc, hostPath
+  size: 20Gi
+
+imageCredentials:
+  enabled: false
+  registry: placerholder
+  username: placerholder
+  password: placerholder
+
+imagePullSecrets:
+  - name: regcred-zhiyoufygo
+
+image:
+  repository: placerholder/zhiyoufygo
+  tag: placerholder
+  pullPolicy: IfNotPresent
+
+configurationFiles:
+  zhiyoufygo.json: |-
+    {placerholder}
+
+replicaCount: 1
+
+enableDebug: "false"
+
+hostNetworkNeeded: false
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  needed: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+containerPort: 9090
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/scheme: http
+  prometheus.io/port: "9090"
+  prometheus.io/path: /metrics
+  prometheus.io/app: zhiyoufygo
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - zhiyoufygo-worker
+        topologyKey: "kubernetes.io/hostname"
+
+nginx:
+  service:
+    type: NodePort
+    port: 80
+  
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+
+  configurationFiles:
+    zhiyoufygo-worker-nginx.conf: |-
+      server {
+          # port to listen on. Can also be set to an IP:PORT
+          listen  8080;
+          server_name  localhost;
+          charset UTF-8;
+
+          location /zhiyoufy-worker/ {
+              root   /srv;
+              autoindex on;
+          }
+      }
+
+  image:
+    repository: placerholder
+    tag: placerholder
+    pullPolicy: IfNotPresent
+  
+  resources: {}

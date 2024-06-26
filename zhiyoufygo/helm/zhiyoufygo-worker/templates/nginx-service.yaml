@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "zhiyoufygo-worker.fullname" . }}-nginx
+  labels:
+    {{- include "zhiyoufygo-worker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: nginx
+spec:
+  type: {{ .Values.nginx.service.type }}
+  ports:
+    - port: {{ .Values.nginx.service.port }}
+{{- if .Values.nginx.service.nodePort }}
+      nodePort: {{ .Values.nginx.service.nodePort }}
+{{- end }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: nginx

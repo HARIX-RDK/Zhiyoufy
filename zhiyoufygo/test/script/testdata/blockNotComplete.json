@@ -1,0 +1,10 @@
+{
+  "name": "blockNotComplete",
+  "commands": [
+    {
+      "commandId": "base/BlockForLoopCommand",
+      "blockName": "processNewArticles",
+      "rangeEnd": 100
+    }
+  ]
+}

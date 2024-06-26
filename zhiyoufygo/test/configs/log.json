@@ -1,0 +1,17 @@
+{
+    "json": false,
+    "level": "debug",
+
+    "to_console": true,
+    "to_files": true,
+
+    "files": {
+        "path": {{.TestLogsDir | json}},
+        "maxsize": 20,
+        "maxbackups": 5,
+        "maxage": 30,
+        "compress": false
+    },
+
+    "report_caller": false
+}

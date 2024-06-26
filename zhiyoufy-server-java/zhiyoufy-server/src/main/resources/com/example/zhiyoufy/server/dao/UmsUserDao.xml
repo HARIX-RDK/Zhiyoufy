@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.UmsUserDao">
+	<resultMap id="ResultMapBase" type="com.example.zhiyoufy.server.domain.dto.ums.UmsUserBase">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+	</resultMap>
+
+	<resultMap id="ResultMapUserDTO" type="com.example.zhiyoufy.server.domain.dto.ums.UmsUserDTO">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="note" jdbcType="VARCHAR" property="note" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+		<result column="sys_admin" jdbcType="BIT" property="sysAdmin" />
+		<result column="admin" jdbcType="BIT" property="admin" />
+		<result column="enabled" jdbcType="BIT" property="enabled" />
+	</resultMap>
+
+	<select id="getUserBaseList" resultMap="ResultMapBase">
+		select
+			id, username
+		from
+			ums_user user
+		<if test="queryParam != null">
+			<where>
+				sys_admin = false
+				<if test="queryParam.keyword != null">
+					and username like #{queryParam.keyword}
+				</if>
+			</where>
+			<if test="queryParam.orderByClause != null">
+				order by ${queryParam.orderByClause}
+			</if>
+		</if>
+	</select>
+
+	<select id="getUserList" resultMap="ResultMapUserDTO">
+		select
+			id, username, email, note, create_time, login_time, sys_admin, admin, enabled
+		from
+			ums_user user
+		<if test="queryParam != null">
+			<where>
+				<if test="queryParam.sysAdmin != null">
+					and sys_admin = #{queryParam.sysAdmin}
+				</if>
+				<if test="queryParam.admin != null">
+					and admin = #{queryParam.admin}
+				</if>
+				<if test="queryParam.keyword != null">
+					and (username like #{queryParam.keyword} or email like #{queryParam.keyword})
+				</if>
+			</where>
+			<if test="queryParam.orderByClause != null">
+				order by ${queryParam.orderByClause}
+			</if>
+		</if>
+	</select>
+
+</mapper>

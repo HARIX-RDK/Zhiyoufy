@@ -1,0 +1,99 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_1用户准备其它几组用户"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_1.username }}",
+      "password": "{{ zhiyoufy.user_params_group_1.password }}"
+    },
+
+
+    {
+        "type": "zhiyoufy_user_get_role_list",
+        "pageSize": 1000,
+        "step_description": "获取全部role别表"
+    },
+
+
+    {
+        "type": "zhiyoufy_user_create_if_missing_update_if_requested",
+        "username": "{{ zhiyoufy.user_params_group_2.username }}",
+        "password": "{{ zhiyoufy.user_params_group_2.password }}",
+        "email": "{{ zhiyoufy.user_params_group_2.email }}",
+        "admin": {{ zhiyoufy.user_params_group_2.admin | tojson() }},
+        "step_description": "查询指定名字的user, 如果不存在就创建，存在则更新"
+    },
+    {
+        "type": "zhiyoufy_user_get_single_by_name",
+        "user_var_path": "target_user",
+        "username": "{{ zhiyoufy.user_params_group_2.username }}",
+        "must_exist": true,
+        "step_description": "查询指定名字的user"
+    },
+    {
+        "type": "zhiyoufy_user_sync_user_role_list",
+        "user_var_path": "target_user",
+        "role_names": {{ zhiyoufy.user_params_group_2.role_names | tojson() }},
+        "add_only": false,
+        "step_description": "查询指定名字的user"
+    },
+
+
+    {
+        "type": "zhiyoufy_user_create_if_missing_update_if_requested",
+        "username": "{{ zhiyoufy.user_params_group_3.username }}",
+        "password": "{{ zhiyoufy.user_params_group_3.password }}",
+        "email": "{{ zhiyoufy.user_params_group_3.email }}",
+        "admin": {{ zhiyoufy.user_params_group_3.admin | tojson() }},
+        "step_description": "查询指定名字的user, 如果不存在就创建，存在则更新"
+    },
+    {
+        "type": "zhiyoufy_user_get_single_by_name",
+        "user_var_path": "target_user",
+        "username": "{{ zhiyoufy.user_params_group_3.username }}",
+        "must_exist": true,
+        "step_description": "查询指定名字的user"
+    },
+    {
+        "type": "zhiyoufy_user_sync_user_role_list",
+        "user_var_path": "target_user",
+        "role_names": {{ zhiyoufy.user_params_group_3.role_names | tojson() }},
+        "add_only": false,
+        "step_description": "查询指定名字的user"
+    },
+
+
+    {
+        "type": "zhiyoufy_user_create_if_missing_update_if_requested",
+        "username": "{{ zhiyoufy.user_params_group_4.username }}",
+        "password": "{{ zhiyoufy.user_params_group_4.password }}",
+        "email": "{{ zhiyoufy.user_params_group_4.email }}",
+        "admin": {{ zhiyoufy.user_params_group_4.admin | tojson() }},
+        "step_description": "查询指定名字的user, 如果不存在就创建，存在则更新"
+    },
+    {
+        "type": "zhiyoufy_user_get_single_by_name",
+        "user_var_path": "target_user",
+        "username": "{{ zhiyoufy.user_params_group_4.username }}",
+        "must_exist": true,
+        "step_description": "查询指定名字的user"
+    },
+    {
+        "type": "zhiyoufy_user_sync_user_role_list",
+        "user_var_path": "target_user",
+        "role_names": {{ zhiyoufy.user_params_group_4.role_names | tojson() }},
+        "add_only": false,
+        "step_description": "查询指定名字的user"
+    },
+
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

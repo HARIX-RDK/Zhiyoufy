@@ -1,0 +1,7 @@
+apiVersion: v2
+name: zhiyoufygo-worker
+description: A Helm chart for zhiyoufygo worker
+
+type: application
+
+version: 0.1.0

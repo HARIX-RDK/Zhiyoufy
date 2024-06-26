@@ -1,0 +1,4 @@
+{
+    "zhiyoufyServerAddr": "ws://172.16.23.70:18088/zhiyoufy-api/v1/websocket-stomp",
+    "badZhiyoufyServerAddr": "ws://172.16.23.70:18000/zhiyoufy-api/v1/websocket-stomp"
+}

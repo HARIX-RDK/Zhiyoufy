@@ -1,0 +1,41 @@
+logging:
+  file:
+    name: zhiyoufy
+
+zhiyoufy:
+  common:
+    elk-switch-all-on: true
+    elk-switch-ons:
+      - DEMO_WRITE
+      - DEMO_READ
+
+server:
+  port: 8088
+  shutdown: graceful
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    zhiyoufy
+  config:
+    import: "local.yml"
+  datasource:
+    connectionTimeout: 1000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      autoCommit: true
+      maximumPoolSize: 10
+      minimumIdle: 2
+    type: com.zaxxer.hikari.HikariDataSource
+  flyway:
+    locations: classpath:db/migration/{vendor}
+  mail:
+    host: smtp.163.com
+    port: 25
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000

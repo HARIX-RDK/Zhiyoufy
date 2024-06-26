@@ -1,0 +1,23 @@
+@use './alignments';
+@use './display';
+@use './spacing';
+@use './text';
+
+@use './base.scss';
+
+#app {
+  height: 100vh;
+}
+
+.full-w {
+  width: 100%;
+}
+
+.full-h {
+  height: 100%;
+}
+
+.full-wh {
+  width: 100%;
+  height: 100%;
+}

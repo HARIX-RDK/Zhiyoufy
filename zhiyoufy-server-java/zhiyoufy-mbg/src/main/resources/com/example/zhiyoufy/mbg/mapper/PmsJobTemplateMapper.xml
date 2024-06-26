@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.mbg.mapper.PmsJobTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.example.zhiyoufy.mbg.model.PmsJobTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="folder_id" jdbcType="BIGINT" property="folderId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="job_path" jdbcType="VARCHAR" property="jobPath" />
+    <result column="worker_labels" jdbcType="VARCHAR" property="workerLabels" />
+    <result column="timeout_seconds" jdbcType="INTEGER" property="timeoutSeconds" />
+    <result column="base_conf_path" jdbcType="VARCHAR" property="baseConfPath" />
+    <result column="private_conf_path" jdbcType="VARCHAR" property="privateConfPath" />
+    <result column="config_singles" jdbcType="VARCHAR" property="configSingles" />
+    <result column="config_collections" jdbcType="VARCHAR" property="configCollections" />
+    <result column="extra_args" jdbcType="VARCHAR" property="extraArgs" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="modified_by" jdbcType="VARCHAR" property="modifiedBy" />
+    <result column="is_perf" jdbcType="BIT" property="isPerf" />
+    <result column="dashboard_addr" jdbcType="VARCHAR" property="dashboardAddr" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, project_id, folder_id, name, description, job_path, worker_labels, timeout_seconds, 
+    base_conf_path, private_conf_path, config_singles, config_collections, extra_args, 
+    created_time, created_by, modified_time, modified_by, is_perf, dashboard_addr
+  </sql>
+  <select id="selectByExample" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pms_job_template
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pms_job_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pms_job_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplateExample">
+    delete from pms_job_template
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplate" useGeneratedKeys="true">
+    insert into pms_job_template (project_id, folder_id, name, 
+      description, job_path, worker_labels, 
+      timeout_seconds, base_conf_path, private_conf_path, 
+      config_singles, config_collections, extra_args, 
+      created_time, created_by, modified_time, 
+      modified_by, is_perf, dashboard_addr
+      )
+    values (#{projectId,jdbcType=BIGINT}, #{folderId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{jobPath,jdbcType=VARCHAR}, #{workerLabels,jdbcType=VARCHAR}, 
+      #{timeoutSeconds,jdbcType=INTEGER}, #{baseConfPath,jdbcType=VARCHAR}, #{privateConfPath,jdbcType=VARCHAR}, 
+      #{configSingles,jdbcType=VARCHAR}, #{configCollections,jdbcType=VARCHAR}, #{extraArgs,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{modifiedBy,jdbcType=VARCHAR}, #{isPerf,jdbcType=BIT}, #{dashboardAddr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplate" useGeneratedKeys="true">
+    insert into pms_job_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="folderId != null">
+        folder_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="jobPath != null">
+        job_path,
+      </if>
+      <if test="workerLabels != null">
+        worker_labels,
+      </if>
+      <if test="timeoutSeconds != null">
+        timeout_seconds,
+      </if>
+      <if test="baseConfPath != null">
+        base_conf_path,
+      </if>
+      <if test="privateConfPath != null">
+        private_conf_path,
+      </if>
+      <if test="configSingles != null">
+        config_singles,
+      </if>
+      <if test="configCollections != null">
+        config_collections,
+      </if>
+      <if test="extraArgs != null">
+        extra_args,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+      <if test="isPerf != null">
+        is_perf,
+      </if>
+      <if test="dashboardAddr != null">
+        dashboard_addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="folderId != null">
+        #{folderId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPath != null">
+        #{jobPath,jdbcType=VARCHAR},
+      </if>
+      <if test="workerLabels != null">
+        #{workerLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="timeoutSeconds != null">
+        #{timeoutSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="baseConfPath != null">
+        #{baseConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="privateConfPath != null">
+        #{privateConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="configSingles != null">
+        #{configSingles,jdbcType=VARCHAR},
+      </if>
+      <if test="configCollections != null">
+        #{configCollections,jdbcType=VARCHAR},
+      </if>
+      <if test="extraArgs != null">
+        #{extraArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerf != null">
+        #{isPerf,jdbcType=BIT},
+      </if>
+      <if test="dashboardAddr != null">
+        #{dashboardAddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplateExample" resultType="java.lang.Long">
+    select count(*) from pms_job_template
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pms_job_template
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.folderId != null">
+        folder_id = #{record.folderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobPath != null">
+        job_path = #{record.jobPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerLabels != null">
+        worker_labels = #{record.workerLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeoutSeconds != null">
+        timeout_seconds = #{record.timeoutSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseConfPath != null">
+        base_conf_path = #{record.baseConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privateConfPath != null">
+        private_conf_path = #{record.privateConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configSingles != null">
+        config_singles = #{record.configSingles,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configCollections != null">
+        config_collections = #{record.configCollections,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extraArgs != null">
+        extra_args = #{record.extraArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifiedTime != null">
+        modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifiedBy != null">
+        modified_by = #{record.modifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPerf != null">
+        is_perf = #{record.isPerf,jdbcType=BIT},
+      </if>
+      <if test="record.dashboardAddr != null">
+        dashboard_addr = #{record.dashboardAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pms_job_template
+    set id = #{record.id,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      folder_id = #{record.folderId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      job_path = #{record.jobPath,jdbcType=VARCHAR},
+      worker_labels = #{record.workerLabels,jdbcType=VARCHAR},
+      timeout_seconds = #{record.timeoutSeconds,jdbcType=INTEGER},
+      base_conf_path = #{record.baseConfPath,jdbcType=VARCHAR},
+      private_conf_path = #{record.privateConfPath,jdbcType=VARCHAR},
+      config_singles = #{record.configSingles,jdbcType=VARCHAR},
+      config_collections = #{record.configCollections,jdbcType=VARCHAR},
+      extra_args = #{record.extraArgs,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      modified_by = #{record.modifiedBy,jdbcType=VARCHAR},
+      is_perf = #{record.isPerf,jdbcType=BIT},
+      dashboard_addr = #{record.dashboardAddr,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplate">
+    update pms_job_template
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="folderId != null">
+        folder_id = #{folderId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPath != null">
+        job_path = #{jobPath,jdbcType=VARCHAR},
+      </if>
+      <if test="workerLabels != null">
+        worker_labels = #{workerLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="timeoutSeconds != null">
+        timeout_seconds = #{timeoutSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="baseConfPath != null">
+        base_conf_path = #{baseConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="privateConfPath != null">
+        private_conf_path = #{privateConfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="configSingles != null">
+        config_singles = #{configSingles,jdbcType=VARCHAR},
+      </if>
+      <if test="configCollections != null">
+        config_collections = #{configCollections,jdbcType=VARCHAR},
+      </if>
+      <if test="extraArgs != null">
+        extra_args = #{extraArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerf != null">
+        is_perf = #{isPerf,jdbcType=BIT},
+      </if>
+      <if test="dashboardAddr != null">
+        dashboard_addr = #{dashboardAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.zhiyoufy.mbg.model.PmsJobTemplate">
+    update pms_job_template
+    set project_id = #{projectId,jdbcType=BIGINT},
+      folder_id = #{folderId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      job_path = #{jobPath,jdbcType=VARCHAR},
+      worker_labels = #{workerLabels,jdbcType=VARCHAR},
+      timeout_seconds = #{timeoutSeconds,jdbcType=INTEGER},
+      base_conf_path = #{baseConfPath,jdbcType=VARCHAR},
+      private_conf_path = #{privateConfPath,jdbcType=VARCHAR},
+      config_singles = #{configSingles,jdbcType=VARCHAR},
+      config_collections = #{configCollections,jdbcType=VARCHAR},
+      extra_args = #{extraArgs,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      modified_by = #{modifiedBy,jdbcType=VARCHAR},
+      is_perf = #{isPerf,jdbcType=BIT},
+      dashboard_addr = #{dashboardAddr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

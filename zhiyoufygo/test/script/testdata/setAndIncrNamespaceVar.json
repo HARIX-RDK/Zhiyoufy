@@ -1,0 +1,21 @@
+{
+  "name": "setAndIncrNamespaceVar",
+  "commands": [
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.userCnt",
+      "varValue": 40
+    },
+    {
+      "commandId": "base/UpdateVarCommand",
+      "varType": "float64",
+      "varPath": "TestNamespace.userCnt",
+      "operator": "+",
+      "operand": 5
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "TestNamespace.userCnt"
+    }
+  ]
+}

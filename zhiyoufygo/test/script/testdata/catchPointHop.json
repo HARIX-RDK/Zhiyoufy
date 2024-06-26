@@ -1,0 +1,55 @@
+{
+  "name": "catchPointHop",
+  "commands": [
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "BooleanVar1",
+      "varValue": true
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "isCatchPoint": true,
+      "varPath": "userCnt",
+      "varValue": 20
+    },
+
+    {
+      "commandId": "base/BlockIfConditionCommand",
+      "blockName": "blockLevel1",
+      "varPath": "BooleanVar1"
+    },
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "BooleanVar2",
+        "varValue": true
+      },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "blockLevel1"
+    },
+
+
+    {
+      "commandId": "base/BlockIfConditionCommand",
+      "blockName": "blockLevel2",
+      "varPath": "BooleanVar2"
+    },
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "BooleanVar1",
+        "varValue": false
+      },
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "BooleanVar2",
+        "varValue": false
+      },
+      {
+        "commandId": "base/TriggerErrorCommand"
+      },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "blockLevel2"
+    }
+  ]
+}

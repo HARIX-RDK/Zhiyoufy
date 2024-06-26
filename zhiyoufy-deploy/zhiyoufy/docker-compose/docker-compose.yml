@@ -1,0 +1,21 @@
+version: '3.0'
+
+services:
+    zhiyoufy:
+        image: aaa.com/bbb/zhiyoufy:20231117
+        environment:
+            SUB_APP: "zhiyoufy"
+            ENABLE_DEBUG: "true"
+        volumes:
+            - /home/autotest:/home/autotest
+            - /srv/zhiyoufy:/output
+            - /srv/zhiyoufy-config:/app/config
+        ports:
+          - "18088:18088"
+        networks:
+          - zhiyoufy
+        restart: always
+
+networks:
+  zhiyoufy:
+    driver: bridge

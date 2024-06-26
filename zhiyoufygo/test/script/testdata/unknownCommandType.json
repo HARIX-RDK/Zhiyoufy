@@ -1,0 +1,8 @@
+{
+  "name": "unknownCommandType",
+  "commands": [
+    {
+      "commandId": "base/UnknownCommand"
+    }
+  ]
+}

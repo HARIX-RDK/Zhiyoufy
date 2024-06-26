@@ -1,0 +1,105 @@
+$spaceAmounts: (1, 2, 3, 4, 5, 6, 7, 8, auto);
+$spacer: 0.25rem;
+
+@each $space in $spaceAmounts {
+  @if $space==auto {
+    .m-#{$space} {
+      margin: #{$space};
+    }
+
+    .mx-#{$space} {
+      margin-left: #{$space};
+      margin-right: #{$space};
+    }
+
+    .my-#{$space} {
+      margin-top: #{$space};
+      margin-bottom: #{$space};
+
+    }
+
+    .ml-#{$space} {
+      margin-left: #{$space};
+    }
+
+    .mr-#{$space} {
+      margin-right: #{$space};
+    }
+
+    .mb-#{$space} {
+      margin-bottom: #{$space};
+    }
+
+    .mt-#{$space} {
+      margin-top: #{$space};
+    }
+  }
+
+  @else {
+    .m-#{$space} {
+      margin: calc($space * $spacer);
+    }
+
+    .mx-#{$space} {
+      margin-left: calc($space * $spacer);
+      margin-right: calc($space * $spacer);
+    }
+
+    .my-#{$space} {
+      margin-top: calc($space * $spacer);
+      margin-bottom: calc($space * $spacer);
+
+    }
+
+    .ml-#{$space} {
+      margin-left: calc($space * $spacer);
+    }
+
+    .mr-#{$space} {
+      margin-right: calc($space * $spacer);
+    }
+
+    .mb-#{$space} {
+      margin-bottom: calc($space * $spacer);
+    }
+
+    .mt-#{$space} {
+      margin-top: calc($space * $spacer);
+    }
+
+    .p-#{$space} {
+      padding: calc($space * $spacer);
+    }
+
+    .px-#{$space} {
+      padding-left: calc($space * $spacer);
+      padding-right: calc($space * $spacer);
+    }
+
+    .py-#{$space} {
+      padding-top: calc($space * $spacer);
+      padding-bottom: calc($space * $spacer);
+
+    }
+
+    .pl-#{$space} {
+      padding-left: calc($space * $spacer);
+    }
+
+    .pr-#{$space} {
+      padding-right: calc($space * $spacer);
+    }
+
+    .pb-#{$space} {
+      padding-bottom: calc($space * $spacer);
+    }
+
+    .pt-#{$space} {
+      padding-top: calc($space * $spacer);
+    }
+  }
+}
+
+.grow, .spacer {
+  flex-grow: 1 !important;
+}

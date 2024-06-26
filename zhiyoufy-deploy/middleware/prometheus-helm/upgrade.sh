@@ -1,0 +1,1 @@
+helm upgrade -f values.local.yaml zhiyoufy-prometheus prometheus-community/prometheus

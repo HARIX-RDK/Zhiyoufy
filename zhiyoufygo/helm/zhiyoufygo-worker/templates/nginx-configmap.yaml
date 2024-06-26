@@ -1,0 +1,11 @@
+{{- if .Values.nginx.configurationFiles }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "zhiyoufygo-worker.fullname" . }}-nginx-configuration
+data:
+{{- range $key, $val := .Values.nginx.configurationFiles }}
+  {{ $key }}: |-
+{{ $val | indent 4}}
+{{- end }}
+{{- end -}}

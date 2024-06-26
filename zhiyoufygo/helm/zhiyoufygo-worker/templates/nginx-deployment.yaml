@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zhiyoufygo-worker.fullname" . }}-nginx
+  labels:
+    {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: nginx
+  strategy:
+{{ toYaml .Values.nginx.strategy | indent 4 }}
+  template:
+    metadata:
+      labels:
+        {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: nginx
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if .Values.serviceAccount.needed }}
+      serviceAccountName: {{ include "zhiyoufygo-worker.serviceAccountName" . }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}        
+      containers:
+        - name: {{ .Chart.Name }}-nginx
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
+          imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+                path: /
+                port: http
+                scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+                path: /
+                port: http
+                scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 3
+          resources:
+            {{- toYaml .Values.nginx.resources | nindent 12 }}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            {{- if .Values.nginx.configurationFiles }}
+            - mountPath: /opt/bitnami/nginx/conf/server_blocks
+              name: configurations
+            {{- end }}
+            - mountPath: /srv/zhiyoufy-worker
+              name: worker-output
+      volumes:
+    {{- if .Values.nginx.configurationFiles }}
+      - name: configurations
+        configMap:
+          name: {{ template "zhiyoufygo-worker.fullname" . }}-nginx-configuration
+    {{- end }}
+    {{- if (eq "hostPath" .Values.persistence.mode) }}
+      - name: worker-output
+        hostPath:
+          path: {{ .Values.persistence.hostPath }}
+          type: DirectoryOrCreate
+    {{- else if (eq "pvc" .Values.persistence.mode) }}
+      - name: worker-output
+        persistentVolumeClaim:
+          claimName: {{ template "zhiyoufygo-worker.fullname" . }}-worker-output
+    {{- end }}

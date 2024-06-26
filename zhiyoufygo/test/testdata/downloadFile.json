@@ -1,0 +1,9 @@
+{
+  "name": "downloadFile",
+  "commands": [
+    {
+      "commandId": "base/DownloadFileCommand",
+      "dataCfgPath": "multiple_configs_file"
+    }
+  ]
+}

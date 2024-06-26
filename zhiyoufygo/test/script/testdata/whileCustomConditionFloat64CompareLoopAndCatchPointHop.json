@@ -1,0 +1,50 @@
+{
+  "name": "whileCustomConditionIntCompareLoopAndCatchPointHop",
+  "commands": [
+    {
+      "commandId": "base/SetVarFromConfigCommand",
+      "varPath": "targetUserCnt",
+      "configPath": "totalUserCnt"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "userCnt",
+      "varValue": 0
+    },
+    {
+      "commandId": "base/UpdateVarCommand",
+      "isCatchPoint": true,
+      "varPath": "userCnt",
+      "varType": "float64",
+      "operator": "+",
+      "operand": 1
+    },
+    {
+      "commandId": "base/BlockWhileLoopCommand",
+      "blockName": "userCountBlock",
+      "varPath": "userCnt",
+      "operator": "<",
+      "varType": "float64",
+      "targetVarPath": "targetUserCnt"
+    },
+    {
+      "commandId": "base/TriggerErrorCommand"
+    },
+    {
+      "commandId": "base/UpdateVarCommand",
+      "isCatchPoint": true,
+      "varPath": "userCnt",
+      "varType": "float64",
+      "operator": "+",
+      "operand": 100
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "userCountBlock"
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "userCnt"
+    }
+  ]
+}

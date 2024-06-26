@@ -1,0 +1,35 @@
+{
+  "name": "mainBodyDoneThenFinallyFailed",
+  "nodes": [
+    {
+      "name": "setAndPrintGlobalVar",
+      "commands": [
+        {
+          "commandId": "base/SetVarCommand",
+          "varPath": "userCnt",
+          "varValue": 40
+        },
+        {
+          "commandId": "base/PrintVarCommand",
+          "varPath": "userCnt"
+        }
+      ]
+    }
+  ],
+  "finallyNode": {
+    "commands": [
+      {
+        "commandId": "base/SetVarCommand",
+        "varPath": "userCntFinally",
+        "varValue": 40
+      },
+      {
+        "commandId": "base/TriggerErrorCommand"
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "userCntFinally"
+      }
+    ]
+  }
+}

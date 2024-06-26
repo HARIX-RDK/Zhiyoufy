@@ -1,0 +1,16 @@
+services:
+  web:
+    image: nginx:1.16.1
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /srv/docs_server:/srv/docs_server
+      - /srv/media-data:/srv/media-data
+      - /srv/auto-portal:/srv/auto-portal
+      - /srv/auto-portal:/srv/production-auto-portal
+      - /srv/zhiyoufy-web:/srv/zhiyoufy-web  
+      - /srv/cert:/srv/cert
+      - ./root:/usr/share/nginx/html
+      - ./config:/etc/nginx/conf.d

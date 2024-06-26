@@ -1,0 +1,14 @@
+{{- if (eq "pvc" .Values.persistence.mode) }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "zhiyoufygo-worker.fullname" . }}-worker-output
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.persistence.storage_class | quote }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+{{- end }}

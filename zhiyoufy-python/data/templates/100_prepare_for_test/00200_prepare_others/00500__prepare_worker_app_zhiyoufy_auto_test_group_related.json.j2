@@ -1,0 +1,62 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_3用户准备zhiyoufy-auto-test这个worker_app",
+        "worker group对应一个worker分组",
+        "group token是group注册时用的token信息"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_3.username }}",
+      "password": "{{ zhiyoufy.user_params_group_3.password }}"
+    },
+
+    {
+        "type": "zhiyoufy_worker_app_get_single_by_name",
+        "worker_app_var_path": "worker_app_var",
+        "name": "zhiyoufy-auto-test",
+        "must_exist": true,
+        "step_description": "查找名字为name的worker_app"
+    },
+
+    {
+        "type": "zhiyoufy_worker_group_create_if_missing_update_if_requested",
+        "worker_app_var_path": "worker_app_var",
+        "name": "group_intra_corp",
+        "workerLabels": {
+          "network_intra_corp": "true"
+        },
+        "description": "部署在公司内网，与内网相通",
+        "update_if_exist": {{ zhiyoufy.default_update_if_exist | tojson() }},
+        "step_description": [
+          "查找名字为name的worker group，不存在则创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_worker_group_get_single_by_name",
+        "worker_app_var_path": "worker_app_var",
+        "worker_group_var_path": "worker_group_var",
+        "name": "group_intra_corp",
+        "must_exist": true,
+        "step_description": "查找名字为name的worker_app"
+    },
+    {
+        "type": "zhiyoufy_group_token_create_if_missing_update_if_requested",
+        "worker_app_var_path": "worker_app_var",
+        "worker_group_var_path": "worker_group_var",
+        "name": "token_1",
+        "secret": "tianwanggaidihu",
+        "description": "测试用",
+        "step_description": [
+          "在worker_group_var_path对应的group里查找指定name的group token, 如果不存在就创建，存在则更新"
+        ]
+    },
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

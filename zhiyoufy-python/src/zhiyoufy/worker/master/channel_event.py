@@ -1,0 +1,17 @@
+from enum import Enum, auto
+
+
+class MasterChannelEventType(Enum):
+    MASTER_CHANNEL_CONNECT_REQ = auto()
+    MASTER_CHANNEL_DISCONNECT_REQ = auto()
+    MASTER_CHANNEL_RECV_END = auto()
+    MASTER_CHANNEL_SEND_END = auto()
+    MASTER_CHANNEL_CONNECTED = auto()
+    MASTER_CHANNEL_DISCONNECTED = auto()
+    MASTER_CHANNEL_CONNECT_TIMEOUT = auto()
+    MASTER_CHANNEL_RECONNECT_TIMEOUT = auto()
+
+    FROM_MASTER_STOMP_MESSAGE = auto()
+    TO_MASTER_STOMP_MESSAGE = auto()
+
+    TO_MASTER_STOMP_CONNECT_REQ = auto()

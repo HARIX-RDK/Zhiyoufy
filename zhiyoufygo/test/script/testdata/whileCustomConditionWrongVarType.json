@@ -1,0 +1,36 @@
+{
+  "name": "whileCustomConditionWrongVarType",
+  "commands": [
+    {
+      "commandId": "base/SetVarFromConfigCommand",
+      "varPath": "EnterLoopBoolVar",
+      "configPath": "enterLoopBool"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "BoolVar",
+      "varValue": true
+    },
+    {
+      "commandId": "base/BlockWhileLoopCommand",
+      "blockName": "BoolVarBlock",
+      "varPath": "BoolVar",
+      "operator": "==",
+      "varType": "string",
+      "targetVarPath": "EnterLoopBoolVar"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "BoolVar",
+      "varValue": false
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "BoolVarBlock"
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "BoolVar"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE jms_job_schedule ADD run_tag VARCHAR(64) NOT NULL DEFAULT "SCHED" AFTER template_name;

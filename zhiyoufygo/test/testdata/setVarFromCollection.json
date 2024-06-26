@@ -1,0 +1,33 @@
+{
+  "name": "loadFile",
+  "commands": [
+    {
+      "commandId": "base/LoadFileCommand",
+      "data": {
+        "fileType": "[]any",
+        "targetVarPath": "multiple_configs"
+      },
+      "dataCfgPath": "multiple_configs_file"
+    },
+    {
+      "commandId": "base/SetVarFromConfigCommand",
+      "varPath": "multiple_configs_stride",
+      "configPath": "multiple_configs_stride"
+    },
+    {
+      "commandId": "base/SetVarFromCollectionCommand",
+      "varPath": "fileConfig",
+      "collectionType": "array",
+      "collectionVarPath": "multiple_configs",
+      "arrayIdxUseChildIdx": true,
+      "arrayIdxStrideVarPath": "multiple_configs_stride"
+    },
+    {
+      "commandId": "base/SetVarFromCollectionCommand",
+      "varPath": "userConfig",
+      "collectionType": "map",
+      "collectionVarPath": "fileConfig",
+      "mapKey": "userConfig"
+    }
+  ]
+}

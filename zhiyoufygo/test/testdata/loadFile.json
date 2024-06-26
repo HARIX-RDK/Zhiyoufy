@@ -1,0 +1,14 @@
+{
+    "name": "loadFile",
+    "commands": [
+      {
+        "commandId": "base/LoadFileCommand",
+        "data": {
+            "fileType": "[]any",
+            "targetVarPath": "multiple_configs"
+        },
+        "dataCfgPath": "multiple_configs_file"
+      }
+    ]
+  }
+  

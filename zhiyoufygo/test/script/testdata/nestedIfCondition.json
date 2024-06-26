@@ -1,0 +1,54 @@
+{
+  "name": "nestedIfCondition",
+  "commands": [
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.BooleanVar1",
+      "varValue": true
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.numVar1",
+      "varValue": 10
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.BooleanVar2",
+      "varValue": false
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.numVar2",
+      "varValue": 10
+    },
+    {
+      "commandId": "base/BlockIfConditionCommand",
+      "blockName": "blockLevel1",
+      "varPath": "TestNamespace.BooleanVar1"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.numVar1",
+      "varValue": 20
+    },
+    {
+      "commandId": "base/BlockIfConditionCommand",
+      "blockName": "blockLevel2",
+      "varPath": "TestNamespace.BooleanVar2",
+      "runIfTrue": false
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "TestNamespace.numVar2",
+      "varValue": 20
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "blockLevel2"
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "blockLevel1"
+    }
+  ]
+}

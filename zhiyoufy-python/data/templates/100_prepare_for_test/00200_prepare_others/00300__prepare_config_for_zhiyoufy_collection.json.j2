@@ -1,0 +1,211 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}"
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_3.username }}",
+      "password": "{{ zhiyoufy.user_params_group_3.password }}"
+    },
+
+
+    {
+        "type": "zhiyoufy_environment_get_single_by_name",
+        "environment_var_path": "environment_var",
+        "name": "{{ env_name }}",
+        "must_exist": true,
+        "step_description": "查找名字为name的environment"
+    },
+
+
+    {
+      "type": "general_for_loop_begin",
+      "block_name": "del_config_collections",
+      "in_values": [
+        {
+          "name": "params_group_1"
+        },
+        {
+          "name": "params_group_2"
+        },
+        {
+          "name": "params_group_3"
+        },
+        {
+          "name": "params_group_4"
+        }
+      ],
+      "next_value_var_path": "config_collection_part_specific",
+      "disabled": {{ zhiyoufy.preparation_rebuild_config_collection_disabled | tojson() }},
+      "step_description": [
+        "遍历in_values赋值到next_value_var_path对应变量"
+      ]
+    },
+    {
+      "type": "general_compose_then_run",
+      "parts": [
+        {
+          "type": "zhiyoufy_config_collection_get_single_by_name",
+          "environment_var_path": "environment_var",
+          "config_collection_var_path": "config_collection_var",
+          "step_description": "查找名字为name的config_collection"
+        },
+        {
+          "part_var_path": "config_collection_part_specific",
+          "part_var_keys": [
+            "name"
+          ]
+        }
+      ],
+      "step_description": [
+        "合成不同parts然后执行"
+      ]
+    },
+    {
+      "type": "zhiyoufy_config_collection_del",
+      "config_collection_var_path": "config_collection_var",
+      "step_description": [
+        "如果存在，删除指定config_collection"
+      ]
+    },
+    {
+      "type": "general_compose_then_run",
+      "parts": [
+        {
+            "type": "zhiyoufy_config_collection_create",
+            "environment_var_path": "environment_var",
+            "step_description": [
+              "在environment里创建指定名字config collection"
+            ]
+        },
+        {
+          "part_var_path": "config_collection_part_specific",
+          "part_var_keys": [
+            "name"
+          ]
+        }
+      ],
+      "step_description": [
+        "合成不同parts然后执行"
+      ]
+    },
+    {
+      "type": "general_for_loop_end",
+      "block_name": "del_config_collections"
+    },
+
+
+    {
+      "type": "zhiyoufy_config_collection_get_single_by_name",
+      "environment_var_path": "environment_var",
+      "config_collection_var_path": "config_collection_var",
+      "name": "params_group_1",
+      "step_description": "查找名字为name的config_collection"
+    },
+    {
+        "type": "zhiyoufy_util_create_config_items_in_batch",
+        "config_item_type": "zhiyoufy_params_group",
+        "range_start": 0,
+        "range_end": {{ zhiyoufy.params_group_1_item_cnt }},
+
+        "name_prefix": "params_group_1__",
+
+        "environment_var_path": "environment_var",
+        "config_collection_var_path": "config_collection_var",
+
+        "params_group_id": 1,
+
+        "item_name_prefix": "params_group_1_item_",
+
+        "update_if_exist": {{ zhiyoufy.preparation_update_if_exist | tojson() }},
+        "step_description": "在名字为group_name的group里批量创建或更新config items"
+    },
+
+
+    {
+      "type": "zhiyoufy_config_collection_get_single_by_name",
+      "environment_var_path": "environment_var",
+      "config_collection_var_path": "config_collection_var",
+      "name": "params_group_2",
+      "step_description": "查找名字为name的config_collection"
+    },
+    {
+        "type": "zhiyoufy_util_create_config_items_in_batch",
+        "config_item_type": "zhiyoufy_params_group",
+        "range_start": 0,
+        "range_end": {{ zhiyoufy.params_group_2_item_cnt }},
+
+        "name_prefix": "params_group_2__",
+
+        "environment_var_path": "environment_var",
+        "config_collection_var_path": "config_collection_var",
+
+        "params_group_id": 2,
+
+        "item_name_prefix": "params_group_2__",
+
+        "update_if_exist": {{ zhiyoufy.preparation_update_if_exist | tojson() }},
+        "step_description": "在名字为group_name的group里批量创建或更新config items"
+    },
+
+
+    {
+      "type": "zhiyoufy_config_collection_get_single_by_name",
+      "environment_var_path": "environment_var",
+      "config_collection_var_path": "config_collection_var",
+      "name": "params_group_3",
+      "step_description": "查找名字为name的config_collection"
+    },
+    {
+        "type": "zhiyoufy_util_create_config_items_in_batch",
+        "config_item_type": "zhiyoufy_params_group",
+        "range_start": 0,
+        "range_end": {{ zhiyoufy.params_group_3_item_cnt }},
+
+        "name_prefix": "params_group_3__",
+
+        "environment_var_path": "environment_var",
+        "config_collection_var_path": "config_collection_var",
+
+        "params_group_id": 3,
+
+        "item_name_prefix": "params_group_3__",
+
+        "update_if_exist": {{ zhiyoufy.preparation_update_if_exist | tojson() }},
+        "step_description": "在名字为group_name的group里批量创建或更新config items"
+    },
+
+
+    {
+      "type": "zhiyoufy_config_collection_get_single_by_name",
+      "environment_var_path": "environment_var",
+      "config_collection_var_path": "config_collection_var",
+      "name": "params_group_4",
+      "step_description": "查找名字为name的config_collection"
+    },
+    {
+        "type": "zhiyoufy_util_create_config_items_in_batch",
+        "config_item_type": "zhiyoufy_params_group",
+        "range_start": 0,
+        "range_end": {{ zhiyoufy.params_group_4_item_cnt }},
+
+        "name_prefix": "params_group_4__",
+
+        "environment_var_path": "environment_var",
+        "config_collection_var_path": "config_collection_var",
+
+        "params_group_id": 4,
+
+        "item_name_prefix": "params_group_4__",
+
+        "update_if_exist": {{ zhiyoufy.preparation_update_if_exist | tojson() }},
+        "step_description": "在名字为group_name的group里批量创建或更新config items"
+    },
+
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

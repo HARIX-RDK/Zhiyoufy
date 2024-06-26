@@ -1,0 +1,35 @@
+{
+  "name": "forCustomLoop",
+  "commands": [
+    {
+      "commandId": "base/SetVarFromConfigCommand",
+      "varPath": "loopCount",
+      "configPath": "loopCount"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "userCnt",
+      "varValue": 40
+    },
+    {
+      "commandId": "base/BlockForLoopCommand",
+      "blockName": "userCountBlock",
+      "rangeEndVarPath": "loopCount"
+    },
+    {
+      "commandId": "base/UpdateVarCommand",
+      "varPath": "userCnt",
+      "varType": "float64",
+      "operator": "+",
+      "operand": 1
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "userCountBlock"
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "userCnt"
+    }
+  ]
+}

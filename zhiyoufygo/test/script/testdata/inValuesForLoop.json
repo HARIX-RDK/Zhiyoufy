@@ -1,0 +1,28 @@
+{
+    "name": "inValuesForLoop",
+    "commands": [
+      {
+         "commandId": "base/SetVarCommand",
+         "varPath": "doneStr",
+         "varValue": "inValuesForLoop exits"
+      },
+      {
+        "commandId": "base/BlockForLoopCommand",
+        "blockName": "ForLoop_inValues",
+        "inValues": ["value_1", "value_2", "value_3"],
+        "IterNextValueVarPath": "nextValue"
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "nextValue"
+      },
+      {
+        "commandId": "base/BlockEndCommand",
+        "blockName": "ForLoop_inValues"
+      },
+      {
+        "commandId": "base/PrintVarCommand",
+        "varPath": "doneStr"
+      }
+    ]
+  }

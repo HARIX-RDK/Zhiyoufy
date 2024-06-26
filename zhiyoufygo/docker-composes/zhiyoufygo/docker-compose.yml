@@ -1,0 +1,17 @@
+version: '3.0'
+
+services:
+    zhiyoufygo:
+        image: example.com/zhiyoufy/zhiyoufygo:20240204
+        environment:
+            ENABLE_DEBUG: "true"
+            MY_POD_NAME: "docker_compose"
+        volumes:
+            - /srv/zhiyoufygo:/output
+        networks:
+          - zhiyoufygo
+        restart: always
+
+networks:
+  zhiyoufygo:
+    driver: bridge

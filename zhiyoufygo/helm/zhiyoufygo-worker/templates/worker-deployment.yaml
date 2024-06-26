@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zhiyoufygo-worker.fullname" . }}
+  labels:
+    {{- include "zhiyoufygo-worker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: worker
+  template:
+    metadata:
+      labels:
+        {{- include "zhiyoufygo-worker.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: worker
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/worker-configmap.yaml") . | sha256sum }}
+    {{- if .Values.podAnnotations }}
+        {{ toYaml .Values.podAnnotations | nindent 8 }}   
+    {{- end }}     
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if .Values.hostNetworkNeeded }}
+      hostNetwork: true
+    {{- end }}
+    {{- if .Values.serviceAccount.needed }}
+      serviceAccountName: {{ include "zhiyoufygo-worker.serviceAccountName" . }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          env:
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: ENABLE_DEBUG
+            value: "{{ .Values.enableDebug }}"
+          {{- if .Values.extraEnvs }}
+          {{ toYaml .Values.extraEnvs | nindent 10 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            {{- if .Values.configurationFiles }}
+            - mountPath: /app/configs_override
+              name: configurations
+            {{- end }}
+            - mountPath: /output
+              name: worker-output
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+      {{- if .Values.configurationFiles }}
+        - name: configurations
+          configMap:
+            name: {{ template "zhiyoufygo-worker.fullname" . }}-configuration
+      {{- end }}
+      {{- if (eq "hostPath" .Values.persistence.mode) }}
+        - name: worker-output
+          hostPath:
+            path: {{ .Values.persistence.hostPath }}
+            type: DirectoryOrCreate
+      {{- else if (eq "pvc" .Values.persistence.mode) }}
+        - name: worker-output
+          persistentVolumeClaim:
+            claimName: {{ template "zhiyoufygo-worker.fullname" . }}-worker-output
+      {{- end }}

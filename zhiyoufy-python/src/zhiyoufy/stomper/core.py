@@ -1,0 +1,2 @@
+class StompException(Exception):
+    pass

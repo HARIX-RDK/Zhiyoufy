@@ -1,0 +1,41 @@
+{
+    "name": "loopAllApis",
+    "commands": [
+      {
+        "commandId": "jsonplaceholder/CreateClientCommand"
+      },
+      {
+        "commandId": "base/BlockForLoopCommand",
+        "blockName": "loopLevel1",
+        "rangeEnd": 10
+      },
+      {
+        "commandId": "jsonplaceholder/CreatePostCommand",
+        "data": {
+          "title": "foo",
+          "body": "bar",
+          "userId": 1
+        }
+      },
+      {
+        "commandId": "jsonplaceholder/GetPostByIdCommand",
+        "postId": 1
+      },
+      {
+        "commandId": "jsonplaceholder/GetPostListCommand"
+      },
+      {
+        "commandId": "jsonplaceholder/UpdatePostCommand",
+        "data": {
+          "id": 1,
+          "title": "foo",
+          "body": "bar",
+          "userId": 1
+        }
+      },        
+      {
+        "commandId": "base/BlockEndCommand",
+        "blockName": "loopLevel1"
+      }
+    ]
+  }

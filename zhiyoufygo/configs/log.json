@@ -1,0 +1,17 @@
+{
+    "json": false,
+    "level": "info",
+
+    "to_console": false,
+    "to_files": true,
+
+    "files": {
+        "path": "logs",
+        "maxsize": 20,
+        "maxbackups": 50,
+        "maxage": 30,
+        "compress": false
+    },
+
+    "report_caller": false
+}

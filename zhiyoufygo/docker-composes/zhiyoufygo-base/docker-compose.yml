@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+    zhiyoufygo_base:
+        image: example.com/zhiyoufy/zhiyoufygo-base:20240204
+        environment:
+            ENABLE_DEBUG: "false"
+        volumes:
+            - /srv/zhiyoufygo:/output
+        networks:
+          - zhiyoufygo
+        restart: always
+
+networks:
+  zhiyoufygo:
+    driver: bridge

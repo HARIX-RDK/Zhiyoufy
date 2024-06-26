@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.WmsWorkerAppUserRelationDao">
+	<resultMap extends="com.example.zhiyoufy.mbg.mapper.WmsWorkerAppUserRelationMapper.BaseResultMap"
+			   id="ResultMapFull" type="com.example.zhiyoufy.server.domain.dto.wms.WmsWorkerAppUserRelationFull">
+		<result column="username" jdbcType="VARCHAR" property="username" />
+	</resultMap>
+
+	<select id="getUserRelationListByWorkerAppId" resultMap="ResultMapFull">
+		select
+			waur.*,
+			user.username
+		from
+			wms_worker_app_user_relation waur
+			left join ums_user user on user.id = waur.user_id
+		where
+			waur.worker_app_id = #{workerAppId}
+	</select>
+
+</mapper>

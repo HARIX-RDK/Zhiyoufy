@@ -1,0 +1,21 @@
+{
+  "name": "setAndIncrNonNumberVar",
+  "commands": [
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "userCnt",
+      "varValue": "40"
+    },
+    {
+      "commandId": "base/UpdateVarCommand",
+      "varType": "float64",
+      "varPath": "userCnt",
+      "operator": "+",
+      "operand": 5
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "userCnt"
+    }
+  ]
+}

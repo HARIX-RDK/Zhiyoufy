@@ -1,0 +1,29 @@
+image:
+    repository: placeholder
+    tag: placeholder
+
+imageCredentials:
+    enabled: true
+    registry: placeholder
+    username: placeholder
+    password: placeholder
+
+replicaCount: 2
+
+enableDebug: "true"
+
+persistence:
+    mode: pvc
+    storage_class: placeholder
+
+nginx:
+  service:
+    nodePort: placeholder
+
+  image:
+    repository: placerholder
+    tag: placerholder
+
+configurationFiles:
+  zhiyoufygo.json: |-
+      placeholder   

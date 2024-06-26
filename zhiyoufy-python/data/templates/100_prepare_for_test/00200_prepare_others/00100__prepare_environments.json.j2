@@ -1,0 +1,46 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_3用户准备环境",
+        "配置文件里会include待准备环境配置文件，比如",
+        "include env_local/zhiyoufy_environment.conf"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_3.username }}",
+      "password": "{{ zhiyoufy.user_params_group_3.password }}"
+    },
+
+
+    {
+        "type": "zhiyoufy_environment_get_single_by_name",
+        "environment_var_path": "environment_var",
+        "name": "{{ env_name }}",
+        "step_description": "查找名字为name的environment"
+    },
+    {
+        "type": "zhiyoufy_environment_create_if_missing_update_if_requested",
+        "environment_var_path": "environment_var",
+        "name": "{{ env_name }}",
+        "description": "{{ env_description }}",
+        "workerLabels": {{ env_worker_labels.as_dict() | tojson() }},
+        "extraArgs": "{{ env_extra_args }}",
+        "step_description": "在名字为group_name的group里查找指定name的environment, 如果不存在就创建，存在则更新"
+    },
+    {
+        "type": "zhiyoufy_environment_get_list",
+        "keyword": "{{ env_name }}",
+        "step_description": [
+            "在名字为group_name的group里查找名字含term的environments"
+        ]
+    },
+
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

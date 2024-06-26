@@ -1,0 +1,146 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_3用户准备环境对应的config singles",
+        "环境对应目录中会有对应config singles配置文件，比如",
+        "目录 config/zhiyoufy_test/{{ env_name }}/config_singles",
+        "config single文件 config_single_1.conf"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_3.username }}",
+      "password": "{{ zhiyoufy.user_params_group_3.password }}"
+    },
+
+
+    {
+        "type": "zhiyoufy_environment_get_single_by_name",
+        "environment_var_path": "environment_var",
+        "name": "{{ env_name }}",
+        "must_exist": true,
+        "step_description": "查找名字为name的environment"
+    },
+
+
+    {
+      "type": "general_for_loop_begin",
+      "block_name": "del_unused_config_singles",
+      "in_values": [
+        {
+          "name": "config_single_old_1"
+        },
+        {
+          "name": "config_single_old_2"
+        }
+      ],
+      "next_value_var_path": "config_single_part_specific",
+      "step_description": [
+        "遍历in_values赋值到next_value_var_path对应变量"
+      ]
+    },
+    {
+      "type": "general_compose_then_run",
+      "parts": [
+        {
+          "type": "zhiyoufy_config_single_get_single_by_name",
+          "environment_var_path": "environment_var",
+          "config_single_var_path": "config_single_var",
+          "step_description": "查找名字为name的config_single"
+        },
+        {
+          "part_var_path": "config_single_part_specific",
+          "part_var_keys": [
+            "name"
+          ]
+        }
+      ],
+      "step_description": [
+        "合成不同parts然后执行"
+      ]
+    },
+    {
+      "type": "zhiyoufy_config_single_del",
+      "config_single_var_path": "config_single_var",
+      "step_description": [
+        "如果存在，删除指定config_single"
+      ]
+    },
+    {
+      "type": "general_for_loop_end",
+      "block_name": "del_unused_config_singles"
+    },
+
+
+    {
+      "type": "general_for_loop_begin",
+      "block_name": "create_config_singles",
+      "in_values": [
+        {
+          "name": "config_single_1",
+          "value_file": "config/zhiyoufy_test/{{ env_name }}/config_singles/config_single_1.conf"
+        },
+        {
+          "name": "config_single_2",
+          "value_file": "config/zhiyoufy_test/{{ env_name }}/config_singles/config_single_2.conf"
+        },
+        {
+          "name": "config_single_3",
+          "value_file": "config/zhiyoufy_test/{{ env_name }}/config_singles/config_single_3.conf"
+        }
+      ],
+      "next_value_var_path": "config_single_part_specific",
+      "step_description": [
+        "遍历in_values赋值到next_value_var_path对应变量"
+      ]
+    },
+    {
+      "type": "general_compose_then_run",
+      "parts": [
+        {
+          "type": "zhiyoufy_config_single_create_if_missing_update_if_requested",
+          "environment_var_path": "environment_var",
+          "update_if_exist": {{ zhiyoufy.preparation_update_if_exist | tojson() }},
+          "step_description": "在名字为group_name的group里查找指定name的config_single, 如果不存在就创建，存在则更新"
+        },
+        {
+          "part_var_path": "config_single_part_specific"
+        }
+      ],
+      "step_description": [
+        "合成不同parts然后执行"
+      ]
+    },
+    {
+      "type": "general_compose_then_run",
+      "parts": [
+        {
+          "type": "zhiyoufy_config_single_get_single_by_name",
+          "environment_var_path": "environment_var",
+          "must_exist": true,
+          "step_description": "查找名字为name的config_single"
+        },
+        {
+          "part_var_path": "config_single_part_specific",
+          "part_var_keys": [
+            "name"
+          ]
+        }
+      ],
+      "step_description": [
+        "合成不同parts然后执行"
+      ]
+    },
+    {
+      "type": "general_for_loop_end",
+      "block_name": "create_config_singles"
+    },
+
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

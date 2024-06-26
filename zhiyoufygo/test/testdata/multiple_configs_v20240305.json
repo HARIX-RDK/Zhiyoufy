@@ -1,0 +1,82 @@
+[
+    {
+        "userConfig": {
+            "userId": "user_0001"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0002"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0003"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0004"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0005"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0006"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0007"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0008"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0009"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    },
+    {
+        "userConfig": {
+            "userId": "user_0010"
+        },
+        "someOtherConfig": {
+            "demoKey": "demoValue"
+        }
+    }
+]

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.example.zhiyoufy</groupId>
+  <artifactId>zhiyoufy</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <name>zhiyoufy</name>
+  <description>Help product to be of good quality</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.6.4</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>11</java.version>
+    <caffeine.version>3.0.5</caffeine.version>
+    <mybatis-starter.version>2.2.2</mybatis-starter.version>
+    <mybatis.version>3.5.9</mybatis.version>
+    <mybatis-generator.version>1.4.0</mybatis-generator.version>
+    <mysql-connector.version>8.0.20</mysql-connector.version>
+    <pagehelper-starter.version>1.4.1</pagehelper-starter.version>
+    <pagehelper.version>5.3.0</pagehelper.version>
+    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--zhiyoufy 通用模块-->
+      <dependency>
+        <groupId>com.example.zhiyoufy</groupId>
+        <artifactId>zhiyoufy-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!--zhiyoufy mbg模块-->
+      <dependency>
+        <groupId>com.example.zhiyoufy</groupId>
+        <artifactId>zhiyoufy-mbg</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!-- MyBatis starter -->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis-starter.version}</version>
+      </dependency>
+      <!-- MyBatis-->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <!-- MyBatis 生成器 -->
+      <dependency>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-core</artifactId>
+        <version>${mybatis-generator.version}</version>
+      </dependency>
+      <!--Mysql数据库驱动-->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector.version}</version>
+      </dependency>
+      <!--MyBatis分页插件starter-->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper-starter.version}</version>
+      </dependency>
+      <!--MyBatis分页插件-->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+      <!--caffeine缓存-->
+      <dependency>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+        <version>${caffeine.version}</version>
+      </dependency>
+      <!--mapstruct mapping-->
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${org.mapstruct.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>zhiyoufy-common</module>
+    <module>zhiyoufy-mbg</module>
+    <module>zhiyoufy-server</module>
+  </modules>
+
+</project>

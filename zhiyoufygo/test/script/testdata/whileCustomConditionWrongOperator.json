@@ -1,0 +1,36 @@
+{
+  "name": "whileCustomConditionWrongOperator",
+  "commands": [
+    {
+      "commandId": "base/SetVarFromConfigCommand",
+      "varPath": "enterLoopStringVar",
+      "configPath": "enterLoopString"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "StringVar",
+      "varValue": "enter loop"
+    },
+    {
+      "commandId": "base/BlockWhileLoopCommand",
+      "blockName": "StringVarBlock",
+      "varPath": "StringVar",
+      "operator": ">=",
+      "varType": "string",
+      "targetVarPath": "enterLoopStringVar"
+    },
+    {
+      "commandId": "base/SetVarCommand",
+      "varPath": "StringVar",
+      "varValue": "skip loop"
+    },
+    {
+      "commandId": "base/BlockEndCommand",
+      "blockName": "StringVarBlock"
+    },
+    {
+      "commandId": "base/PrintVarCommand",
+      "varPath": "StringVarBlock"
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "params": {
+    "zhiyoufy_addr": "{{ zhiyoufy.addr }}",
+    "case_description": [
+        "使用user_params_group_3用户准备zhiyoufy-auto-test这个project",
+        "job folder对应一个RobotFramework目录，比如",
+        "cases/zhiyoufy_test/dynamic_flow_test",
+        "job template对应folder下的一个robot文件，比如",
+        "01000__config_single_crud.robot"
+    ]
+  },
+  "datas": [
+    {
+      "type": "zhiyoufy_base_login",
+      "username": "{{ zhiyoufy.user_params_group_3.username }}",
+      "password": "{{ zhiyoufy.user_params_group_3.password }}"
+    },
+
+    {
+        "type": "zhiyoufy_project_get_single_by_name",
+        "project_var_path": "project_var",
+        "name": "zhiyoufy-auto-test",
+        "must_exist": true,
+        "step_description": "查找名字为name的project"
+    },
+
+    {
+        "type": "zhiyoufy_job_folder_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "root",
+        "name": "zhiyoufy",
+        "description": "Used by zhiyoufy team",
+        "step_description": [
+          "查找名字为name的job folder，不存在则创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_job_folder_get_single_by_name",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "root",
+        "job_folder_var_path": "job_folder_zhiyoufy",
+        "name": "zhiyoufy",
+        "must_exist": true,
+        "step_description": "查找名字为name的project"
+    },
+    {
+        "type": "zhiyoufy_job_template_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "job_folder_var_path": "job_folder_zhiyoufy",
+        "name": "zhiyoufy_test",
+        "jobPath": "cases/zhiyoufy_test",
+        "baseConfPath": "config/zhiyoufy_test/robot.conf",
+        "privateConfPath": "config/zhiyoufy_test/private.conf",
+        "description": "zhiyoufy_test测试集",
+        "extraArgs": [
+          "--exclude NotReady --exclude Disabled"
+        ],
+        "configSingles": [
+          "config_single_1",  "config_single_2",
+          "config_single_3"
+        ],
+        "configCollections": [
+          "params_group_1", "params_group_2", "params_group_3",
+          "params_group_4"
+        ],
+        "workerLabels": {
+          "run_zhiyoufy_auto_test": "true"
+        },
+        "timeoutSeconds": 7200,
+        "step_description": [
+          "在job_folder_var_path对应的目录里查找指定name的job template, 如果不存在就创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_job_template_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "job_folder_var_path": "job_folder_zhiyoufy",
+        "name": "zhiyoufy_test_exclude_preparation",
+        "jobPath": "cases/zhiyoufy_test",
+        "baseConfPath": "config/zhiyoufy_test/robot.conf",
+        "privateConfPath": "config/zhiyoufy_test/private.conf",
+        "description": [
+          "zhiyoufy_test测试集，但是不包括打了Preparation Tag的测试例, ",
+          "Preparation代表这个脚本是为了某些case做准备工作，比如账号创建，",
+          "通常不需要也不应该每次都执行"
+        ],
+        "extraArgs": [
+          "--exclude NotReady --exclude Disabled",
+          "--exclude Preparation"
+        ],
+        "configSingles": [
+          "config_single_1",  "config_single_2",
+          "config_single_3"
+        ],
+        "configCollections": [
+          "params_group_2", "params_group_3",
+          "params_group_4"
+        ],
+        "workerLabels": {
+          "run_zhiyoufy_auto_test": "true"
+        },
+        "timeoutSeconds": 7200,
+        "step_description": [
+          "在job_folder_var_path对应的目录里查找指定name的job template, 如果不存在就创建，存在则更新"
+        ]
+    },
+
+
+    {
+        "type": "zhiyoufy_job_folder_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "job_folder_zhiyoufy",
+        "name": "100_prepare_for_test",
+        "description": "cases/zhiyoufy_test/100_prepare_for_test",
+        "step_description": [
+          "查找名字为name的job folder，不存在则创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_job_folder_get_single_by_name",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "job_folder_zhiyoufy",
+        "job_folder_var_path": "job_folder_100_prepare_for_test",
+        "name": "100_prepare_for_test",
+        "must_exist": true,
+        "step_description": "查找名字为name的project"
+    },
+    {
+        "type": "zhiyoufy_job_template_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "job_folder_var_path": "job_folder_100_prepare_for_test",
+        "name": "100_prepare_for_test",
+        "jobPath": "cases/zhiyoufy_test/100_prepare_for_test",
+        "baseConfPath": "config/zhiyoufy_test/robot.conf",
+        "privateConfPath": "config/zhiyoufy_test/private.conf",
+        "description": [
+          "100_prepare_for_test测试集"
+        ],
+        "extraArgs": [
+          "--exclude NotReady --exclude Disabled"
+        ],
+        "configSingles": [
+          "config_single_1",  "config_single_2",
+          "config_single_3"
+        ],
+        "configCollections": [
+          "params_group_1"
+        ],
+        "workerLabels": {
+          "run_zhiyoufy_auto_test": "true"
+        },
+        "timeoutSeconds": 1800,
+        "step_description": [
+          "在job_folder_var_path对应的目录里查找指定name的job template, 如果不存在就创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_job_template_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "job_folder_var_path": "job_folder_100_prepare_for_test",
+        "name": "100_prepare_for_test_exclude_admin",
+        "jobPath": "cases/zhiyoufy_test/100_prepare_for_test",
+        "baseConfPath": "config/zhiyoufy_test/robot.conf",
+        "privateConfPath": "config/zhiyoufy_test/private.conf",
+        "description": [
+          "100_prepare_for_test测试集，去掉需要admin账户的"
+        ],
+        "extraArgs": [
+          "--exclude NotReady --exclude Disabled",
+          "--exclude Prepare_by_Admin"
+        ],
+        "configSingles": [
+          "config_single_1",  "config_single_2",
+          "config_single_3"
+        ],
+        "configCollections": [
+          "params_group_1"
+        ],
+        "workerLabels": {
+          "run_zhiyoufy_auto_test": "true"
+        },
+        "timeoutSeconds": 1800,
+        "step_description": [
+          "在job_folder_var_path对应的目录里查找指定name的job template, 如果不存在就创建，存在则更新"
+        ]
+    },
+
+
+    {
+        "type": "zhiyoufy_job_folder_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "job_folder_zhiyoufy",
+        "name": "dynamic_flow_test",
+        "description": "cases/zhiyoufy_test/dynamic_flow_test",
+        "step_description": [
+          "查找名字为name的job folder，不存在则创建，存在则更新"
+        ]
+    },
+    {
+        "type": "zhiyoufy_job_folder_get_single_by_name",
+        "project_var_path": "project_var",
+        "parent_folder_var_path": "job_folder_zhiyoufy",
+        "job_folder_var_path": "job_folder_dynamic_flow_test",
+        "name": "dynamic_flow_test",
+        "must_exist": true,
+        "step_description": "查找名字为name的project"
+    },
+    {
+        "type": "zhiyoufy_job_template_create_if_missing_update_if_requested",
+        "project_var_path": "project_var",
+        "job_folder_var_path": "job_folder_dynamic_flow_test",
+        "name": "dynamic_flow_test",
+        "jobPath": "cases/zhiyoufy_test/dynamic_flow_test",
+        "baseConfPath": "config/zhiyoufy_test/robot.conf",
+        "privateConfPath": "config/zhiyoufy_test/private.conf",
+        "description": [
+          "dynamic_flow_test测试集"
+        ],
+        "extraArgs": [
+          "--exclude NotReady --exclude Disabled"
+        ],
+        "configSingles": [
+          "config_single_1",  "config_single_2",
+          "config_single_3"
+        ],
+        "configCollections": [
+          "params_group_2", "params_group_3",
+          "params_group_4"
+        ],
+        "workerLabels": {
+          "run_zhiyoufy_auto_test": "true"
+        },
+        "timeoutSeconds": 1800,
+        "step_description": [
+          "在job_folder_var_path对应的目录里查找指定name的job template, 如果不存在就创建，存在则更新"
+        ]
+    },
+
+
+    {
+      "type": "zhiyoufy_base_logout"
+    }
+  ]
+}

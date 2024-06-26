@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.PmsFavoriteFolderDao">
+	<select id="getJobTemplateListByFolderId"
+			resultMap="com.example.zhiyoufy.mbg.mapper.PmsJobTemplateMapper.BaseResultMap">
+		select
+			pms_job_template.*
+		from
+			pms_favorite_folder_template_relation pfftr
+			left join pms_job_template on pms_job_template.id = pfftr.template_id
+		where
+			pfftr.folder_id = #{folderId}
+	</select>
+
+	<select id="getFavoriteFolderListByTemplateId"
+			resultMap="com.example.zhiyoufy.mbg.mapper.PmsJobFolderMapper.BaseResultMap">
+		select
+			pms_favorite_folder.*
+		from
+			pms_favorite_folder_template_relation pfftr
+			left join pms_favorite_folder on pms_favorite_folder.id = pfftr.folder_id
+		where
+			pfftr.user_id = #{userId} and pfftr.template_id = #{templateId}
+	</select>
+</mapper>

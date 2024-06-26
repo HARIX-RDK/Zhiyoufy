@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.zhiyoufy.server.dao.EmsEnvironmentDao">
+	<resultMap extends="com.example.zhiyoufy.mbg.mapper.EmsEnvironmentMapper.BaseResultMap"
+			   id="ResultMapFull" type="com.example.zhiyoufy.server.domain.dto.ems.EmsEnvironmentFull">
+		<result column="is_owner" jdbcType="BIT" property="isOwner" />
+		<result column="is_editor" jdbcType="BIT" property="isEditor" />
+	</resultMap>
+
+	<resultMap id="ResultMapBase" type="com.example.zhiyoufy.server.domain.dto.ems.EmsEnvironmentBase">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="parent_id" jdbcType="BIGINT" property="parentId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="worker_labels" jdbcType="VARCHAR" property="workerLabels" />
+	</resultMap>
+
+	<select id="getEnvironmentListByUserId" resultMap="ResultMapFull">
+		select
+			env.* ,
+			eur.is_owner,
+			eur.is_editor
+		from
+			ems_environment_user_relation eur
+		left join ems_environment env on env.id = eur.environment_id
+		where
+			eur.user_id = #{userId}
+		<if test="queryParam != null">
+			<if test="queryParam.keyword != null">
+				and env.name like #{queryParam.keyword}
+			</if>
+			<if test="queryParam.orderByClause != null">
+				order by ${queryParam.orderByClause}
+			</if>
+		</if>
+	</select>
+
+	<select id="getEnvironmentBaseListByUserId" resultMap="ResultMapBase">
+		select
+			env.id,	env.parent_id, env.name, env.worker_labels
+		from
+			ems_environment_user_relation eur
+			left join ems_environment env on env.id = eur.environment_id
+		where
+			eur.user_id = #{userId}
+	</select>
+
+</mapper>
