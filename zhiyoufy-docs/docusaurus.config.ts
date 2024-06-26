@@ -60,6 +60,11 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
+        {
+          href: 'https://github.com/HARIX-RDK/Zhiyoufy',
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     footer: {
@@ -77,6 +82,10 @@ const config: Config = {
         {
           title: '更多',
           items: [
+            {
+              label: 'Docusaurus',
+              href: 'https://github.com/facebook/docusaurus',
+            },
             {
               label: 'Markdown语法',
               href: 'https://daringfireball.net/projects/markdown/syntax',

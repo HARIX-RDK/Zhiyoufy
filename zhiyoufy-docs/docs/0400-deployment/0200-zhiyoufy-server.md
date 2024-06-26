@@ -52,7 +52,7 @@ GRANT ALL PRIVILEGES ON zhiyoufy_20240625.* TO 'zhiyoufy_user'@'%';
 
 [docker-elk][]
 
-- 首先从[docker-elk][]下载代码
+- 首先从[docker-elk][]下载代码，需要用分支`release-7.x`，因为用的spring boot版本有些旧，只支持7.X
 - 修改`elasticsearch\config\elasticsearch.yml`使用basic license
 ```yaml
 xpack.license.self_generated.type: basic
@@ -72,8 +72,7 @@ docker-compose up setup
 
 docker-compose up -d
 
-docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user elastic
-docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user kibana_system
+docker-compose exec -T elasticsearch bin/elasticsearch-setup-passwords auto --batch
 
 # 更新.env文件
 docker-compose restart
